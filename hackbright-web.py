@@ -33,6 +33,17 @@ def get_student():
 
     return html
 
+@app.route("/project")
+def show_project_info():
+    """Shows the title, discription, and max grade for a project given its title."""
+
+    title = request.args.get('title')
+
+    desc, max_grade = hackbright.get_project_by_title(title)[1:]
+
+    return render_template("project_info.html", title=title, desc=desc, max_grade=max_grade)
+
+
 
 @app.route("/student-add")
 def form_add_student():

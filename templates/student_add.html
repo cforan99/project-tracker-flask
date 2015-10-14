@@ -1,11 +1,8 @@
-<!doctype html>
-<html>
-<head>
-    <title>Add New Student</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
+{% block title %}Add New Student{% endblock %}
 
+{% block content %}
 <form action="/confirmation" method="POST">
     <label>Enter Student First Name: 
         <input type="text" name="first">
@@ -18,6 +15,4 @@
     </label><br><br>
     <input type="submit" value="Add Student">
 </form>
-
-</body>
-</html>
+{% endblock %}
