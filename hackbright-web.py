@@ -16,15 +16,18 @@ def get_student_form():
 def get_student():
     """Show information about a student."""
 
-    github = request.args.get('github', 'None')
+    github = request.args.get('github')
     # if github == 'None':
     #     return "Please request a valid github account in the form /student?github=[USERNAME]"
     try: 
         first, last, github = hackbright.get_student_by_github(github)
+
+        grade_data = hackbright.get_grades_by_github(github)
     
         html = render_template("student_info.html", first=first,
                                                 last=last,
-                                                github=github)
+                                                github=github,
+                                                grade_data=grade_data)
     except TypeError:
         html = "This is not a valid student, <a href='/student-search'>please try again</a>."
 
