@@ -33,11 +33,9 @@ def get_student():
 
     return html
 
-@app.route("/project")
-def show_project_info():
+@app.route("/project/<string:title>")
+def show_project_info(title):
     """Shows the title, discription, and max grade for a project given its title."""
-
-    title = request.args.get('title')
 
     desc, max_grade = hackbright.get_project_by_title(title)[1:]
 
