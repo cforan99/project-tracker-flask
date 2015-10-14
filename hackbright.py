@@ -17,6 +17,29 @@ def connect_to_db(app):
     db.app = app
     db.init_app(app)
 
+def list_all_projects():
+    """Returns a list of all the projects in the database"""
+
+    QUERY = """
+    SELECT title FROM Projects
+    """
+    db_cursor = db.session.execute(QUERY)
+    rows = db_cursor.fetchall()
+
+    return rows
+
+
+def list_all_student_data():
+    """Returns a list of all the students in the database"""
+
+    QUERY = """
+    SELECT first_name, last_name, github FROM Students
+    """
+    db_cursor = db.session.execute(QUERY)
+    rows = db_cursor.fetchall()
+
+    return rows
+
 
 def get_student_by_github(github):
     """Given a github account name, print information about the matching student."""
@@ -73,6 +96,20 @@ def get_grade_by_github_title(github, title):
     print "Student %s in project %s received grade of %s" % (
         github, title, row[0])
     return row
+
+
+def get_student_scores_by_title(title):
+    """Returns a list of students who have completed the project and their grades"""
+
+    QUERY = """
+        SELECT s.github, s.first_name, s.last_name, g.grade
+        FROM Students AS s
+        JOIN Grades AS g ON (s.github = g.student_github)
+        WHERE g.project_title = :title
+    """
+    db_cursor = db.session.execute(QUERY, {'title': title})
+    rows = db_cursor.fetchall()
+    return rows
 
 
 def assign_grade(github, title, grade):

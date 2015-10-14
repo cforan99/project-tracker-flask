@@ -8,4 +8,16 @@
 <p>{{ desc }}</p>
 <p>Max Grade: {{ max_grade }}</p>
 
+<table>
+    <thead>
+        <tr><td>Student</td><td>Grade</td></tr>
+    </thead>
+    <tbody>
+        {% for github, first, last, grade in grade_data %}   
+            <tr><td><a href="/student?github={{ github }}">{{ first }} {{ last }}</a></td>
+                <td>{{ grade }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table> 
+
 {% endblock %}

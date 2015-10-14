@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Project Tracker{% endblock %}
+
+{% block content %}
+<h1>Project Tracker</h1>
+
+<h2>Students</h2>
+
+<ul>
+{% for first, last, github in student_data %}
+        <li><a href="/student?github={{ github }}">{{ first }} {{ last }}</a></li>
+{% endfor %}
+</ul>
+
+
+<h2>Projects</h2>
+
+<ul>
+{% for project in projects %}
+    {% with title = project[0] %}
+        <li><a href="/project/{{ title }}">{{ title }}</a></li>
+    {% endwith %}
+{% endfor %}
+</ul>
+
+{% endblock %}
